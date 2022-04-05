@@ -3,7 +3,7 @@
 Una aplicación web de galería, donde subes una foto, y puedes ver todas las
 fotos que se han subido al sitio. Las imagenes se guardan en Cloudinary.
 
-[![Miriio](https://dav-dev.com/assets/projects/miriio.jpg "Miriio")](https://dav-dev.com/assets/projects/miriio.jpg "Miriio")
+[![Galería](https://dav-dev.com/assets/projects/gallery.jpg "Galería")](https://dav-dev.com/assets/projects/gallery.jpg "Galería")
 
 ## Backend
 
@@ -38,9 +38,8 @@ El backend de este sitio lo puedes ver en este
 - Abrir una terminal e ingresar a la carpeta creada.
 - Instalar las dependencias con el comando "npm install".
 - Las variables de entorno de desarrollo están en el archivo ".env.development",
-  ahí tendremos la dirección de la API REST corriendo en local, y el entorno en
-  el que estamos, "development" en nuestro caso.
+  ahí tendremos la dirección de la API REST corriendo en local.
 - Iniciar el proyecto con el comando "npm run dev".
 - Tenemos que tener el backend corriendo en el puerto 3001 (o el que hayamos
   definido en las variables de entorno), para ello, ver el
-  [repositorio](https://github.com/jonathangg03/social-media-backend "repositorio").
+  [repositorio](https://github.com/jonathangg03/davdev-gallery-nextui-backend "repositorio").
