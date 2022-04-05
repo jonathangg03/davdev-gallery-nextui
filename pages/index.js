@@ -9,10 +9,23 @@ import {
   Spacer,
   Text,
   Button,
+  Loading,
 } from "@nextui-org/react";
 import { Camera } from "react-iconly";
+import useSWR from "swr";
 
-export default function Home({ images }) {
+const fetcher = async (args) => {
+  const images = await axios.get(args);
+
+  return images.data;
+};
+
+export default function Home() {
+  const { data: images, error } = useSWR(
+    process.env.NEXT_PUBLIC_API_URL,
+    fetcher
+  );
+
   const handleSendToNew = (e) => {
     router.push("/new");
   };
@@ -31,21 +44,29 @@ export default function Home({ images }) {
         <Container fluid>
           <Row>
             <Col>
-              <Button
-                flat
-                color="success"
-                auto
-                iconRight={<Camera fill="white" />}
-                onClick={handleSendToNew}
-              >
-                Nueva imagen
-              </Button>
+              {images && (
+                <Button
+                  flat
+                  color="success"
+                  auto
+                  iconRight={<Camera fill="white" />}
+                  onClick={handleSendToNew}
+                >
+                  Nueva imagen
+                </Button>
+              )}
+              {error && <Text color="error">{error.message}</Text>}
+              {!error && !images && (
+                <Loading type="points" color="success" textColor="success">
+                  Cargando imagenes
+                </Loading>
+              )}
             </Col>
           </Row>
         </Container>
         <Spacer y={0.5} />
         <Grid.Container gap={0.1}>
-          {images.map((image) => {
+          {images?.map((image) => {
             return (
               <Grid key={image._id} xs={12} sm={6} md={3}>
                 <div align="center">
@@ -103,13 +124,3 @@ export default function Home({ images }) {
     </>
   );
 }
-
-export const getServerSideProps = async () => {
-  const images = await axios.get(process.env.NEXT_PUBLIC_API_URL);
-  console.log(process.env.NEXT_PUBLIC_API_URL);
-  return {
-    props: {
-      images: images.data,
-    },
-  };
-};
