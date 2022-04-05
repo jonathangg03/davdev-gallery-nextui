@@ -56,7 +56,7 @@ export default function Home() {
                 </Button>
               )}
               {error && <Text color="error">{error.message}</Text>}
-              {!error && !images && (
+              {!images && (
                 <Loading type="points" color="success" textColor="success">
                   Cargando imagenes
                 </Loading>
