@@ -9,7 +9,7 @@ export default function Delete({ id, title }) {
   const handleDelete = async () => {
     setLoading(true);
     try {
-      await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/${id}`);
+      await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/image/${id}`);
       setLoading(false);
       router.replace("/");
     } catch (error) {
@@ -54,7 +54,7 @@ export const getServerSideProps = async (ctx) => {
   const { id } = query;
 
   const { data: image } = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_URL}/${id}`
+    `${process.env.NEXT_PUBLIC_API_URL}/image/${id}`
   );
 
   return {

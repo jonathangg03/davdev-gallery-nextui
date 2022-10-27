@@ -22,7 +22,7 @@ const fetcher = async (args) => {
 
 export default function Home() {
   const { data: images, error } = useSWR(
-    process.env.NEXT_PUBLIC_API_URL,
+    `${process.env.NEXT_PUBLIC_API_URL}/image`,
     fetcher
   );
 

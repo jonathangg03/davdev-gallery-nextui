@@ -39,7 +39,7 @@ export default function New() {
       fd.append("title", titleField.value);
       fd.append("description", descriptionField.value);
       fd.append("uploadImage", e.target[0].files[0]);
-      await axios.post(process.env.NEXT_PUBLIC_API_URL, fd);
+      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/image`, fd);
       setLoading(false);
       router.push("/");
     } catch (error) {
