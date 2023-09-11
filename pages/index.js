@@ -1,6 +1,5 @@
 import Head from "next/head";
 import router from "next/router";
-import axios from "axios";
 import {
   Container,
   Row,
@@ -12,27 +11,10 @@ import {
   Loading,
 } from "@nextui-org/react";
 import { Camera } from "react-iconly";
-import useSWR from "swr";
-
-const fetcher = async (args) => {
-  const images = await axios.get(args);
-
-  return images.data;
-};
+import useImages from "../hooks/useImages";
 
 export default function Home() {
-  const { data: images, error } = useSWR(
-    process.env.NEXT_PUBLIC_API_URL,
-    fetcher
-  );
-
-  const handleSendToNew = (e) => {
-    router.push("/new");
-  };
-
-  const handleDelete = (e) => {
-    router.push(`/${e.target.id}/delete`);
-  };
+  const { images, error, isValidating } = useImages();
 
   return (
     <>
@@ -50,13 +32,13 @@ export default function Home() {
                   color="success"
                   auto
                   iconRight={<Camera fill="white" />}
-                  onClick={handleSendToNew}
+                  onClick={() => router.push("/new")}
                 >
                   Nueva imagen
                 </Button>
               )}
               {error && <Text color="error">{error.message}</Text>}
-              {!images && (
+              {isValidating && (
                 <Loading type="points" color="success" textColor="success">
                   Cargando imagenes
                 </Loading>
@@ -89,7 +71,9 @@ export default function Home() {
                     flat
                     color="error"
                     size="medium"
-                    onClick={handleDelete}
+                    onClick={(event) =>
+                      router.push(`/${event.target.id}/delete`)
+                    }
                     id={image._id}
                   >
                     <span id={image._id}>Eliminar</span>
